@@ -36,6 +36,10 @@
 #include <QtCore/QFile>
 #include <QtCore/QIODevice>
 
+#include <random>
+#include <utility>
+#include <vector>
+
 void WbMesh::init() {
   mUrl = findMFString("url");
   mCcw = findSFBool("ccw");
@@ -282,7 +286,47 @@ void WbMesh::updateTriangleMesh(bool issueWarnings) {
     return;
   }
 
-  mTriangleMeshError = mTriangleMesh->init(coordData, normalData, texCoordData, indexData, totalVertices, currentIndexIndex);
+  // Shuffle the order of faces so that when colliding the mesh the limited number of contact points that are found are distributed
+  // randomly around the mesh instead of all in one region. We will do a weighted shuffle, with the weights being proportional to
+  // the area of each triangle so that the contact points will (on average) be evenly distributed over the surface of the contacting
+  // faces (i.e a face with twice the surface area will be twice as likely to be picked).
+  // 
+  // I found the algorithm used below [in a stackoverflow answer](https://stackoverflow.com/a/69095302/245766) which references 
+  // [Weighted Random Sampling (2005; Efraimidis, Spirakis)](http://utopia.duth.gr/~pefraimi/research/data/2007EncOfAlg.pdf).
+  // To see how the weighted shuffle algorithm works, imagine that the mesh surface is a thin radioactive layer and we have a Geiger
+  // counter that can detect which triangle emits each emitted particle. The particles are emitted at random but a triangle with 
+  // twice the area will (on average) emit twice as many particles in the same amount of time. The time until the next particle is 
+  // emitted by a particular triangle is a random number distributed according to the exponential distribution divided by the area.
+  // So, if we generation random emission times for all of the triangles and then sort them by those emission times, then the first n 
+  // triangles (for any n) will be a random sample of the triangles evenly distributed over the mesh (on average).
+  auto expDist = std::exponential_distribution<double>();
+  size_t numTris = currentIndexIndex / 3;
+  std::vector<std::pair<double, size_t>> timeIPairs;
+  timeIPairs.reserve(numTris);
+  std::mt19937 rng;
+  for (size_t i = 0; i < numTris; i++) {
+    WbVector3 v1, v2, v3;
+    v1.setXyz(coordData+3*indexData[3*i]);
+    v2.setXyz(coordData+3*indexData[3*i+1]);
+    v3.setXyz(coordData+3*indexData[3*i+2]);
+
+    double area = (v2-v1).cross(v3-v1).length()/2.0;
+    double time = expDist(rng)/area; // The time is randomly selected from the exponential distribution divided by the weight
+    timeIPairs.emplace_back(time, i);
+  }
+  // Sorting by the weighted random times results in a weighted shuffle
+  std::sort(timeIPairs.begin(), timeIPairs.end());
+
+  // Now rearrange the actual triangles using the shuffle
+  unsigned int *const shuffledIndexData = new unsigned int[3 * totalFaces];
+  for (size_t i = 0; i < numTris; i++) {
+    size_t oldI = timeIPairs[i].second;
+    shuffledIndexData[3*i] = indexData[3*oldI];
+    shuffledIndexData[3*i+1] = indexData[3*oldI+1];
+    shuffledIndexData[3*i+2] = indexData[3*oldI+2];
+  }
+
+  mTriangleMeshError = mTriangleMesh->init(coordData, normalData, texCoordData, shuffledIndexData, totalVertices, currentIndexIndex);
 
   if (issueWarnings) {
     foreach (QString warning, mTriangleMesh->warnings())
@@ -296,6 +340,7 @@ void WbMesh::updateTriangleMesh(bool issueWarnings) {
   delete[] normalData;
   delete[] texCoordData;
   delete[] indexData;
+  delete[] shuffledIndexData;
 }
 
 uint64_t WbMesh::computeHash() const {
