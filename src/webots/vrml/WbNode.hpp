@@ -117,7 +117,7 @@ public:
   const QString &useName() const { return mUseName; }
   void setUseName(const QString &useName, bool signal = true);
   QString fullName() const;  // e.g. "Robot, "DEF MY_BOT Robot" or "USE MY_BOT"
-  virtual const QString &x3dName() const { return nodeModelName(); }
+  virtual const QString &w3dName() const { return nodeModelName(); }
   virtual const QString urdfName() const;
   const QString &modelName() const;      // e.g. for Nao -> "Nao"
   const QString &nodeModelName() const;  // e.g. for Nao -> "Robot"
@@ -132,6 +132,8 @@ public:
             bool parsingMessage = false) const;  // show standard warning message formatted for this node
   void info(const QString &message, bool parsingMessage = false) const;  // show standard info message formatted for this node
   QString usefulName() const;                                            // user friendy node name for error messages
+  virtual QString endPointName() const { return QString(); };
+  QString computeName() const;  // USE, DEF or "name" field value
 
   // destruction
   bool isBeingDeleted() const { return mIsBeingDeleted; }
@@ -263,8 +265,8 @@ public:
   void setInsertionCompleted() { mInsertionCompleted = true; }
 
   // export
-  virtual void exportBoundingObjectToX3D(WbWriter &writer) const {}
-  virtual QStringList fieldsToSynchronizeWithX3D() const { return QStringList(); }
+  virtual void exportBoundingObjectToW3d(WbWriter &writer) const {}
+  virtual QStringList fieldsToSynchronizeWithW3d() const { return QStringList(); }
   virtual void fixMissingResources() const {}
 
   virtual void reset(const QString &id);

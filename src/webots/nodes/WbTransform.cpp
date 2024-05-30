@@ -55,7 +55,7 @@ void WbTransform::applyToScale() {
   if (mBaseNode->areWrenObjectsInitialized())
     applyScaleToWren();
 
-  if (mBaseNode->boundingSphere() && WbSimulationState::instance()->isRayTracingEnabled())
+  if (WbSimulationState::instance()->isRayTracingEnabled() && mBaseNode->boundingSphere())
     mBaseNode->boundingSphere()->setOwnerSizeChanged();
 
   if (mTranslateRotateManipulator && mTranslateRotateManipulator->isAttached())
@@ -104,9 +104,9 @@ void WbTransform::applyToOdeScale() {
   geometry()->applyToOdeData();
 }
 
-QStringList WbTransform::fieldsToSynchronizeWithX3D() const {
+QStringList WbTransform::fieldsToSynchronizeWithW3d() const {
   QStringList fields;
-  fields << "scale" << WbPose::fieldsToSynchronizeWithX3D();
+  fields << "scale" << WbPose::fieldsToSynchronizeWithW3d();
   return fields;
 }
 
@@ -125,14 +125,6 @@ const WbVector3 &WbTransform::absoluteScale() const {
     updateAbsoluteScale();
 
   return mAbsoluteScale;
-}
-
-WbMatrix3 WbTransform::rotationMatrix() const {
-  const WbMatrix4 &m = matrix();
-  const WbVector3 &s = m.scale();
-  WbMatrix3 rm = m.extracted3x3Matrix();
-  rm.scale(1.0 / s.x(), 1.0 / s.y(), 1.0 / s.z());
-  return rm;
 }
 
 const WbMatrix4 &WbTransform::vrmlMatrix() const {
@@ -181,14 +173,30 @@ void WbTransform::setScaleNeedUpdateFlag() const {
 void WbTransform::updateMatrix() const {
   assert(mMatrix);
 
-  mMatrix->fromVrml(mTranslation->x(), mTranslation->y(), mTranslation->z(), mRotation->x(), mRotation->y(), mRotation->z(),
-                    mRotation->angle(), mScale->x(), mScale->y(), mScale->z());
-
-  // multiply with upper matrix if any
-  const WbPose *pose = mBaseNode->upperPose();
+  // combine with upper matrix if any
+  const WbPose *const pose = upperPose();
+  WbVector3 t, s;
+  WbRotation r;
   if (pose) {
+    // to prevent shear effect in case of non-uniform scaling, it is not possible to multiply the transform matrix directly
+    // note that this computation matches the one in WREN
     const WbTransform *transform = dynamic_cast<const WbTransform *>(pose);
-    *mMatrix = transform ? transform->matrix() * *mMatrix : pose->matrix() * *mMatrix;
+    if (!transform)
+      transform = pose->upperTransform();
+    s = transform ? transform->absoluteScale() : WbVector3(1.0, 1.0, 1.0);
+    WbQuaternion q = pose->rotationMatrix().toQuaternion();
+    t = pose->position() + q * (s * mTranslation->value());
+    mRelativeQuaternion = mRotation->value().toQuaternion();
+    q = q * mRelativeQuaternion;
+    q.normalize();
+    r.fromQuaternion(q);
+    s = absoluteScale();
+  } else {
+    t = mTranslation->value();
+    r = mRotation->value();
+    s = mScale->value();
   }
+
+  mMatrix->fromVrml(t.x(), t.y(), t.z(), r.x(), r.y(), r.z(), r.angle(), s.x(), s.y(), s.z());
   mMatrixNeedUpdate = false;
 }

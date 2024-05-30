@@ -333,20 +333,26 @@ QString WbNode::fullName() const {
   return modelName();
 }
 
-QString WbNode::usefulName() const {
+QString WbNode::computeName() const {
   if (isUseNode())
-    return "USE " + mUseName;
-
-  QString usefulName = "";
-
+    return mUseName;
   if (!defName().isEmpty())
-    usefulName += QString("DEF ") + defName() + " ";
+    return mDefName;
+  const WbSFString *name = findSFString("name");
+  return name ? "\"" + name->value() + "\"" : QString();
+}
 
-  usefulName += modelName();
+QString WbNode::usefulName() const {
+  QString usefulName = fullName();
 
-  if (isProtoInstance())
-    usefulName += " (PROTO)";
+  if (isUseNode() || !defName().isEmpty())
+    return usefulName;
 
+  const WbSFString *name = findSFString("name");
+  if (name)
+    usefulName += " \"" + name->value() + "\"";
+  else
+    usefulName += " " + endPointName();
   return usefulName;
 }
 
@@ -925,7 +931,7 @@ void WbNode::write(WbWriter &writer) const {
     }
     return;
   }
-  if (writer.isX3d() || (writer.isProto() && (!writer.rootNode() || this == writer.rootNode() ||
+  if (writer.isW3d() || (writer.isProto() && (!writer.rootNode() || this == writer.rootNode() ||
                                               WbVrmlNodeUtilities::findContainingProto(this) ==
                                                 WbVrmlNodeUtilities::findContainingProto(writer.rootNode())))) {
     writeExport(writer);
@@ -1048,7 +1054,7 @@ const QString WbNode::urdfName() const {
 }
 
 bool WbNode::exportNodeHeader(WbWriter &writer) const {
-  if (writer.isX3d())  // actual export is done in WbBaseNode
+  if (writer.isW3d())  // actual export is done in WbBaseNode
     return false;
   else if (writer.isUrdf()) {
     if (gUrdfCurrentNode == this) {
@@ -1081,17 +1087,17 @@ void WbNode::exportNodeFields(WbWriter &writer) const {
     return;
 
   foreach (WbField *f, fields()) {
-    if (!f->isDeprecated() && ((f->isVrml() || writer.isProto()) && f->singleType() != WB_SF_NODE))
+    if (!f->isDeprecated() && ((f->isW3d() || writer.isProto()) && f->singleType() != WB_SF_NODE))
       f->write(writer);
   }
 }
 
 void WbNode::exportNodeSubNodes(WbWriter &writer) const {
   foreach (WbField *f, fields()) {
-    if (!f->isDeprecated() && ((f->isVrml() || writer.isProto() || writer.isUrdf()) && f->singleType() == WB_SF_NODE)) {
+    if (!f->isDeprecated() && ((f->isW3d() || writer.isProto() || writer.isUrdf()) && f->singleType() == WB_SF_NODE)) {
       const WbSFNode *const node = dynamic_cast<WbSFNode *>(f->value());
       if (node == NULL || node->value() == NULL || node->value()->shallExport() || writer.isProto() || writer.isUrdf()) {
-        if (writer.isX3d() || writer.isUrdf())
+        if (writer.isW3d() || writer.isUrdf())
           f->value()->write(writer);
         else
           f->write(writer);
@@ -1101,8 +1107,8 @@ void WbNode::exportNodeSubNodes(WbWriter &writer) const {
 }
 
 void WbNode::exportNodeFooter(WbWriter &writer) const {
-  if (writer.isX3d())
-    writer << "</" << x3dName() << ">";
+  if (writer.isW3d())
+    writer << "</" << w3dName() << ">";
   else if (writer.isUrdf()) {
     if (gUrdfCurrentNode == this) {
       writer.indent();
@@ -1121,7 +1127,7 @@ void WbNode::exportNodeContents(WbWriter &writer) const {
     fixMissingResources();
 
   exportNodeFields(writer);
-  if (writer.isX3d())
+  if (writer.isW3d())
     writer << ">";
   exportNodeSubNodes(writer);
 }
@@ -1199,7 +1205,7 @@ void WbNode::addExternProtoFromFile(const WbProtoModel *proto, WbWriter &writer)
 void WbNode::writeExport(WbWriter &writer) const {
   if (!mIsProtoParameterNode)
     isProtoParameterNode();
-  assert(!(writer.isX3d() && mIsProtoParameterNode[0]));
+  assert(!(writer.isW3d() && mIsProtoParameterNode[0]));
   if (exportNodeHeader(writer))
     return;
   if (writer.isUrdf()) {
@@ -2149,13 +2155,12 @@ void WbNode::printDebugNodeFields(int level, bool printParameters) {
   const QString type = printParameters ? "Parameter" : "Field";
   const QList<WbField *> fieldList = printParameters ? parameters() : fields();
   foreach (WbField *p, fieldList) {
-    qDebug() << QString("%1%2 %3 0x%4 (alias 0x%5)%6:")
+    qDebug() << QString("%1%2 %3 0x%4 (alias 0x%5):")
                   .arg(indent.toStdString().c_str())
                   .arg(type.toStdString().c_str())
                   .arg(p->name().toStdString().c_str())
                   .arg((quintptr)p, 0, 16)
-                  .arg((quintptr)p->parameter(), 0, 16)
-                  .arg(p->isDisabledParameter() ? " DISABLED" : "");
+                  .arg((quintptr)p->parameter(), 0, 16);
     if (p->type() == WB_SF_NODE) {
       WbNode *n = dynamic_cast<WbSFNode *>(p->value())->value();
       if (n)

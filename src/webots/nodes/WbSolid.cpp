@@ -334,9 +334,9 @@ void WbSolid::preFinalize() {
     }
   }
 
-  if (nodeType() != WB_NODE_TOUCH_SENSOR && mBoundingObject->value() && mPhysics->value() == NULL &&
-      mJointParents.size() == 0 && upperSolid() && upperSolid()->physics())
-    parsingWarn(tr("As 'physics' is set to NULL, collisions will have no effect"));
+  if (nodeType() != WB_NODE_TOUCH_SENSOR && nodeType() != WB_NODE_VACUUM_GRIPPER && mBoundingObject->value() &&
+      mPhysics->value() == NULL && mJointParents.size() == 0 && upperSolid() && upperSolid()->physics())
+    parsingWarn(tr("As 'physics' is set to NULL, collisions will have no effect."));
 }
 
 bool WbSolid::restoreHiddenKinematicParameters(const HiddenKinematicParametersMap &map, int &counter) {
@@ -2975,27 +2975,9 @@ bool WbSolid::exportNodeHeader(WbWriter &writer) const {
   return WbMatter::exportNodeHeader(writer);
 }
 
-void WbSolid::exportNodeFields(WbWriter &writer) const {
-  WbMatter::exportNodeFields(writer);
-  if (writer.isX3d()) {
-    if (!name().isEmpty())
-      writer << " name='" << sanitizedName() << "'";
-    writer << " type='solid'";
-  }
-}
-
 void WbSolid::exportNodeFooter(WbWriter &writer) const {
-  if (writer.isX3d() && boundingObject())
-    boundingObject()->exportBoundingObjectToX3D(writer);
+  if (writer.isW3d() && boundingObject())
+    boundingObject()->exportBoundingObjectToW3d(writer);
 
   WbMatter::exportNodeFooter(writer);
-}
-
-const QString WbSolid::sanitizedName() const {
-  QString name_dirty = name();
-  name_dirty.replace("\'", "&apos;", Qt::CaseInsensitive);
-  name_dirty.replace("\"", "&quot;", Qt::CaseInsensitive);
-  name_dirty.replace(">", "&gt;", Qt::CaseInsensitive);
-  name_dirty.replace("<", "&lt;", Qt::CaseInsensitive);
-  return name_dirty.replace("&", "&amp;", Qt::CaseInsensitive);
 }

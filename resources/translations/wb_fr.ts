@@ -232,14 +232,6 @@
         <translation type="unfinished">Webots ne peut pas calculer l&apos;inertie pour les objets ElevationGrid.</translation>
     </message>
     <message>
-        <source>Invalid &apos;boundingObject&apos; (a Transform has no &apos;geometry&apos;): the inertia matrix cannot be calculated.</source>
-        <translation type="unfinished">&apos;boundingObject&apos; invalide (une Transform n&apos;a pas de &apos;geometry&apos;) : la matrice d&apos;inertie ne peut pas être calculée.</translation>
-    </message>
-    <message>
-        <source>Invalid &apos;boundingObject&apos; (a Transform, or a Shape within a Transform, has no &apos;geometry&apos;): the inertia matrix cannot be calculated.</source>
-        <translation type="unfinished">&apos;boundingObject&apos; invalide (une Transform, ou une Shape dans une Transform, n&apos;a pas de &apos;geometry&apos;) : la matrice d&apos;inertie ne peut pas être calculée.</translation>
-    </message>
-    <message>
         <source>Invalid &apos;boundingObject&apos; (a Shape&apos;s &apos;geometry&apos; field is not set): the inertia matrix cannot be calculated.</source>
         <translation type="unfinished">&apos;boundingObject&apos; invalide (un champ &apos;geometry&apos; de la Shape n&apos;est pas défini) : la matrice d&apos;inertie ne peut pas être calculée.</translation>
     </message>
@@ -560,10 +552,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&apos;scale&apos; was made uniform because of physics constraints inside a &apos;boundingObject&apos;.</source>
-        <translation type="unfinished">&apos;scale&apos; a été uniforme à cause de contraintes physiques dans &apos;boundingObject&apos;.</translation>
-    </message>
-    <message>
         <source>TextToSpeech error: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -590,10 +578,6 @@ Invalid USE nodes that refer to DEF nodes defined outside the %2 node are turned
     </message>
     <message>
         <source>Expected VRML97 type but found &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&apos;field&apos;, &apos;unconnectedField&apos;, &apos;vrmlField&apos; or &apos;hiddenField&apos; keywords</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -712,10 +696,6 @@ This can be caused by duplicate vertices in your mesh. Try to open your model in
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&apos;scale&apos; cannot be changed if a descendant Robot node is present.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Python was not found.
 </source>
         <translation type="unfinished"></translation>
@@ -785,10 +765,6 @@ This can be caused by duplicate vertices in your mesh. Try to open your model in
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&apos;scale&apos; were changed so that x = y because of physics constraints inside a &apos;boundingObject&apos;.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Invalid URL &apos;%1&apos;. Sounds must be in &apos;.mp3&apos; or &apos;.wav&apos; format.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -822,11 +798,23 @@ To fix the problem, you should:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>TMPDIR is not set: cannot run Webots.</source>
+        <source>USER or USERNAME environment variable not set, falling back to &apos;default&apos; username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>TMPDIR &apos;%1&apos; doesn&apos;t exist: cannot run Webots.</source>
+        <source>Contact joints between materials &apos;%1&apos; and &apos;%2&apos; will only be created for the %3 deepest contact points instead of all the %4 contact points.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid &apos;boundingObject&apos; (a Pose has no &apos;geometry&apos;): the inertia matrix cannot be calculated.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid &apos;boundingObject&apos; (a Pose, or a Shape within a Pose, has no &apos;geometry&apos;): the inertia matrix cannot be calculated.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&apos;field&apos;, &apos;unconnectedField&apos;, &apos;w3dField&apos; or &apos;hiddenField&apos; keywords</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2123,12 +2111,6 @@ Restore initial state of the simulation. (%1+Shift+T)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&apos;%1&apos;
-
-The path to this Webots project contains non 8-bit characters. Webots won&apos;t be able to compile any C/C++ controller in this path. Please move this Webots project into a folder with only 8-bit characters.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Do you want to reset or reload the world?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2150,6 +2132,12 @@ You don&apos;t have write access to this folder. Webots won&apos;t be able to cl
         <source>&apos;%1&apos;
 
 You don&apos;t have write access to the &apos;Program Files&apos; folder. Webots won&apos;t be able to clean or compile any controller in this path. Please move this Webots project into a folder where you have write access.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&apos;%1&apos;
+
+The robot controller name contains non 8-bit characters. Webots won&apos;t be able to compile any C/C++ controller with such a name. Please rename this robot controller with only 8-bit characters.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2318,7 +2306,7 @@ Color %1: %2 %3 %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Connectors could not be attached because none of their parent nodes have Physics nodes.</source>
+        <source>Connectors could not be attached because neither of them (nor their parent nodes) has a Physics node.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2482,10 +2470,6 @@ Color %1: %2 %3 %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>waiting for connection on %1 or on %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Could not find the controller directory.
 Starting the &lt;generic&gt; controller instead.</source>
         <translation type="unfinished"></translation>
@@ -2545,6 +2529,14 @@ Please close any running instances of the controller and reload the world.</sour
     </message>
     <message>
         <source>disconnected, waiting for new connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Waiting for local or remote connection on port %1 targeting robot named &apos;%2&apos;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Waiting for local or remote connection on port %1 targeting robot named &apos;%2&apos; (%3).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3239,82 +3231,6 @@ and show the new robot window)</source>
     </message>
 </context>
 <context>
-    <name>WbImportWizard</name>
-    <message>
-        <source>Import a 3D model in the scene.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Choose a File</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The &apos;%1&apos; file will now be imported at the end of the scene tree.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>File Selection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please choose a 3D file to import:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Choose</source>
-        <translation type="unfinished">Choisir</translation>
-    </message>
-    <message>
-        <source>Please choose how do you want to import the model:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import texture coordinates (if available).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import normals (if available).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import appearances (if available).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import nodes as Solids.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use meshes for bounding objects.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Summary</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>3D Model Import</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This wizard will help you importing a 3D model in Webots.
-
-The following file formats are supported:
-	- Collada (*.dae)
-	- STL (*.stl)
-	- Wavefront (*.obj)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>3D Files (*.dae *.DAE *.stl *.STL *.obj *.OBJ);;Collada (*.dae *.DAE);;STL (*.stl *.STL);;Wavefront (*.obj *.OBJ)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>WbIndexedFaceSet</name>
     <message>
         <source>Cannot create IndexedFaceSet because: &quot;%1&quot;.</source>
@@ -3830,36 +3746,8 @@ The following file formats are supported:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Ca&amp;mera Devices</source>
-        <translation>Cameras</translation>
-    </message>
-    <message>
-        <source>&amp;Display Devices</source>
-        <translation>Displays</translation>
-    </message>
-    <message>
         <source>Export HTML5 Scene</source>
         <translation>Exporter Scène HTML5</translation>
-    </message>
-    <message>
-        <source>Show &apos;%1&apos; overlay</source>
-        <translation>Afficher &apos;%1&apos;</translation>
-    </message>
-    <message>
-        <source>Show overlay of camera device &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show overlay of display device &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;RangeFinder Devices</source>
-        <translation>RangeFinders</translation>
-    </message>
-    <message>
-        <source>Show overlay of range-finder device &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Stop HTML5 &amp;Animation...</source>
@@ -3975,10 +3863,6 @@ The following file formats are supported:
     </message>
     <message>
         <source>Fullscreen mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show &apos;%2&apos; overlay of robot &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4248,6 +4132,38 @@ As a consequence, some project-related functionalities may not work.</source>
         <source>&lt;strong&gt;Rotate:&lt;/strong&gt;&lt;br/&gt;To rotate the camera around the x and y axis, you have to set the mouse pointer in the 3D scene, press the left mouse button and drag the mouse:&lt;br/&gt;- if you clicked on an object, the rotation will be centered around the picked point on this object.&lt;br/&gt;- if you clicked outside of any object, the rotation will be centered around the position of the camera.&lt;br/&gt;Dragging the mouse horizontally will rotate the camera around the world up axis. Dragging the mouse vertically will rotate the camera around its horizontal axis.&lt;br/&gt;&lt;br/&gt;&lt;strong&gt;Translate:&lt;/strong&gt;&lt;br/&gt;To translate the camera in the x and y directions, you have to set the mouse pointer in the 3D scene, press the right mouse button and drag the mouse.&lt;br/&gt;&lt;br/&gt;&lt;strong&gt;Zoom / Tilt:&lt;/strong&gt;&lt;br/&gt;Set the mouse pointer in the 3D scene, then:&lt;br/&gt;- if you press both left and right mouse buttons (or the middle button) and drag the mouse vertically, the camera will zoom in or out.&lt;br/&gt;- if you press both left and right mouse buttons (or the middle button) and drag the mouse horizontally, the camera will rotate around the viewing axis (tilt movement).&lt;br/&gt;- if you use the wheel of the mouse, the camera will zoom in or out.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&apos;%1&apos; Overlays</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show &apos;%1&apos; Overlay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show overlay of camera device &apos;%1&apos; for robot &apos;%2&apos;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show overlay of range-finder device &apos;%1&apos; for robot &apos;%2&apos;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show overlay of display device &apos;%1&apos; for robot &apos;%2&apos;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Camera Devices</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RangeFinder Devices</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Devices</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>WbMatter</name>
@@ -4256,23 +4172,19 @@ As a consequence, some project-related functionalities may not work.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>A Transform node inside a &apos;boundingObject&apos; can only contain one child. Remaining children are ignored.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>A Transform node inside a &apos;boundingObject&apos; can only contain one Shape or one Geometry node. The child node is ignored.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>A child in the Group placed in &apos;boundingObject&apos; is missing.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The &apos;scale&apos; field components of a Solid must be the same: y and z are reset to x.</source>
-        <translation type="unfinished">Les composants de champ &apos;scale&apos; d&apos;un Solid doivent être les mêmes : y et z sont réinitialisés à x.</translation>
+        <source>&apos;name&apos; cannot be empty. Default node name &apos;%1&apos; is automatically set.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&apos;name&apos; cannot be empty. Default node name &apos;%1&apos; is automatically set.</source>
+        <source>A Pose node inside a &apos;boundingObject&apos; can only contain one child. Remaining children are ignored.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A Pose node inside a &apos;boundingObject&apos; can only contain one Shape or one Geometry node. The child node is ignored.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4424,7 +4336,7 @@ As a consequence, some project-related functionalities may not work.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Streaming server received unsupported X3D message: &apos;%1&apos;. You should run Webots with the &apos;--stream=&quot;mode=x3d&quot;&apos; command line option.</source>
+        <source>Streaming server received unsupported W3D message: &apos;%1&apos;. You should run Webots with the &apos;--stream=&quot;mode=w3d&quot;&apos; command line option.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4905,10 +4817,6 @@ a larger node.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Parameter %1 not supported in PROTO %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> Using &apos;Slot&apos; nodes mechanism.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4934,6 +4842,10 @@ a larger node.</source>
     </message>
     <message>
         <source>Malformed EXTERNPROTO URL. Invalid URL provided: %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Parameter &apos;%1&apos; not supported in PROTO &apos;%2&apos;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5207,6 +5119,21 @@ Do you want to continue?</source>
     </message>
 </context>
 <context>
+    <name>WbPose</name>
+    <message>
+        <source>A Transform placed in &apos;boundingObject&apos; needs a Geometry or Shape as its first child to be valid.</source>
+        <translation type="unfinished">Une Transform placée dans un &apos;boundingObject&apos; a besoin d&apos;une Geometry ou d&apos;une Shape comme premier enfant pour être valide.</translation>
+    </message>
+    <message>
+        <source>A Transform placed inside a &apos;boundingObject&apos; can only contain one child. Remaining children are ignored.</source>
+        <translation type="unfinished">Une Transform placée à l&apos;intérieur d&apos;un &apos;boundingObject&apos; ne peut contenir qu&apos;un fils. Les enfants restants sont ignorés.</translation>
+    </message>
+    <message>
+        <source>The first child of a Transform placed in &apos;boundingObject&apos; must be a Geometry or a Shape filled with a Geometry.</source>
+        <translation type="unfinished">Le premier enfant d&apos;une Transform placée dans &apos;boundingObject&apos; doit être une Geometry ou une Shape contenant une Geometry.</translation>
+    </message>
+</context>
+<context>
     <name>WbPositionViewer</name>
     <message>
         <source>Select relatively to which solid the position should be measured</source>
@@ -5230,6 +5157,10 @@ Do you want to continue?</source>
     </message>
     <message>
         <source>Relative to %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scale:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5672,10 +5603,6 @@ screenshot of the world in .jpg format when the it is saved, shared or exported.
 <context>
     <name>WbProtoManager</name>
     <message>
-        <source>Please adapt your project to R2023a following these instructions: https://github.com/cyberbotics/webots/wiki/How-to-adapt-your-world-or-PROTO-to-Webots-R2022b</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&apos;%1&apos; must be converted because EXTERNPROTO declarations are missing.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5729,6 +5656,10 @@ screenshot of the world in .jpg format when the it is saved, shared or exported.
     </message>
     <message>
         <source>Cannot check if &apos;%1&apos; exists because category &apos;%2&apos; is unknown.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please adapt your project to R2023b following these instructions: https://cyberbotics.com/doc/guide/upgrading-webots</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5876,6 +5807,13 @@ screenshot of the world in .jpg format when the it is saved, shared or exported.
     </message>
 </context>
 <context>
+    <name>WbRecognition</name>
+    <message>
+        <source>Invalid &apos;occlusion&apos; changed to 1. The value should be 0, 1 or 2.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>WbRenderingDevice</name>
     <message>
         <source>Invalid &apos;width&apos;: changed to 1.</source>
@@ -5914,10 +5852,6 @@ screenshot of the world in .jpg format when the it is saved, shared or exported.
     </message>
     <message>
         <source>&apos;remoteControl&apos; cannot be modified after the controller is initialized.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This Robot node is scaled: this is discouraged as it could compromise the correct physical behavior.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5962,6 +5896,10 @@ screenshot of the world in .jpg format when the it is saved, shared or exported.
     </message>
     <message>
         <source>The &apos;window&apos; field of the robot has been changed to &quot;&lt;generic&gt;&quot;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&apos;battery&apos; field can only contain three values. Remaining values are ignored.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6108,10 +6046,6 @@ screenshot of the world in .jpg format when the it is saved, shared or exported.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Warning: Transforming a %1 into a %2 node will loose some information.</source>
-        <translation type="unfinished">Avertissement : transformer un noeud %1 en %2 fait perdre des informations.</translation>
-    </message>
-    <message>
         <source>Do you still want to proceed?</source>
         <translation type="unfinished">Voulez-vous tout de même continuer  ?</translation>
     </message>
@@ -6147,6 +6081,14 @@ Do you want to continue?</source>
     </message>
     <message>
         <source>URDF export failed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Warning: Turning a %1 into a %2 will loose some information%3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>, including possibly children.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6274,7 +6216,7 @@ Do you want to open it now?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You are using a world from an old version of Webots. The backwards compability algorithm will try to convert it. Refer to the wiki for more information: https://github.com/cyberbotics/webots/wiki/How-to-adapt-your-world-or-PROTO-to-Webots-R2022a</source>
+        <source>You are using a world from an old version of Webots. The backwards compability algorithm will try to convert it. Refer to the wiki for more information: https://cyberbotics.com/doc/guide/upgrading-webots</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6427,10 +6369,6 @@ Do you want to open it now?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>    x3d (default) or mjpeg.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>    Print on stdout the URL of extern controllers that should be started.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6444,6 +6382,14 @@ Do you want to open it now?</source>
     </message>
     <message>
         <source>OpenAL device: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>    Clear the cache of Webots on startup.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>    w3d (default) or mjpeg.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6532,10 +6478,6 @@ Do you want to open it now?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>As &apos;physics&apos; is set to NULL, collisions will have no effect</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>PROTO &apos;%1&apos; changed after this world was saved:
 hidden parameters have been automatically reset.
 
@@ -6587,6 +6529,10 @@ Please save the current world to get rid of this message.</source>
     </message>
     <message>
         <source>Solid node defined in PROTO field is used multiple times. Webots doesn&apos;t fully support this because the multiple node instances cannot be identical.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>As &apos;physics&apos; is set to NULL, collisions will have no effect.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6662,14 +6608,6 @@ Please save the current world to get rid of this message.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>wb_supervisor_node_get_position() can exclusively be used with Transform (or derived).</source>
-        <translation type="unfinished">wb_supervisor_node_get_position() peut être exclusivement utilisé avec la Transform (ou dérivée).</translation>
-    </message>
-    <message>
-        <source>wb_supervisor_node_get_orientation() can exclusively be used with Transform (or derived).</source>
-        <translation type="unfinished">wb_supervisor_node_get_orientation() peut être utilisé exclusivement avec Transform (ou dérivée).</translation>
-    </message>
-    <message>
         <source>wb_supervisor_node_get_center_of_mass() can exclusively be used with Solid</source>
         <translation type="unfinished">wb_supervisor_node_get_center_of_mass() peut être exclusivement utilisé avec un Solid</translation>
     </message>
@@ -6738,11 +6676,59 @@ Please save the current world to get rid of this message.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>wb_supervisor_node_get_pose() can exclusively be used with Transform (or derived).</source>
+        <source>Node &apos;%1&apos; is internal to a PROTO and therefore cannot be deleted from a Supervisor.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Node &apos;%1&apos; is internal to a PROTO and therefore cannot be deleted from a Supervisor.</source>
+        <source>wb_supervisor_node_get_position() can exclusively be used with Pose (or derived).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>wb_supervisor_node_get_orientation() can exclusively be used with Pose (or derived).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>wb_supervisor_node_get_pose() can exclusively be used with Pose (or derived).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&apos;wb_supervisor_node_%1_contact_point_tracking&apos; called for an invalid node.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Node &apos;%1&apos; (%2) is not suitable for contact points tracking, aborting request.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No active contact points tracking could be found for the node &apos;%1&apos;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&apos;wb_supervisor_node_%1_pose_tracking&apos; called for an invalid node.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Node &apos;%1&apos; (%2) is not suitable for pose tracking, aborting request.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pose tracking can be exclusively used with Pose (or derived) &apos;from_node&apos; argument, but &apos;%1&apos; (%2) is given. The absolute pose in global coordinates will be returned.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No active pose tracking could be found matching nodes &apos;%1&apos; (to) and &apos;%2&apos; (from) arguments.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&apos;wb_supervisor_field_%1_sf_tracking&apos; called for an invalid node.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&apos;wb_supervisor_field_%1_sf_tracking&apos; called for an invalid field.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No active field tracking could be found matching the field &apos;%1&apos; of node &apos;%2&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6802,6 +6788,10 @@ Please save the current world to get rid of this message.</source>
     </message>
     <message>
         <source>Error when reloading world: %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Port %1 is already in use</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6954,21 +6944,6 @@ Shouhaitez-vous le sauvegarder avant de fermer ?</translation>
     </message>
 </context>
 <context>
-    <name>WbTransform</name>
-    <message>
-        <source>A Transform placed in &apos;boundingObject&apos; needs a Geometry or Shape as its first child to be valid.</source>
-        <translation>Une Transform placée dans un &apos;boundingObject&apos; a besoin d&apos;une Geometry ou d&apos;une Shape comme premier enfant pour être valide.</translation>
-    </message>
-    <message>
-        <source>A Transform placed inside a &apos;boundingObject&apos; can only contain one child. Remaining children are ignored.</source>
-        <translation>Une Transform placée à l&apos;intérieur d&apos;un &apos;boundingObject&apos; ne peut contenir qu&apos;un fils. Les enfants restants sont ignorés.</translation>
-    </message>
-    <message>
-        <source>The first child of a Transform placed in &apos;boundingObject&apos; must be a Geometry or a Shape filled with a Geometry.</source>
-        <translation>Le premier enfant d&apos;une Transform placée dans &apos;boundingObject&apos; doit être une Geometry ou une Shape contenant une Geometry.</translation>
-    </message>
-</context>
-<context>
     <name>WbTriangleMeshGeometry</name>
     <message>
         <source>Cannot create %1 because: &quot;%2&quot;.</source>
@@ -6986,27 +6961,42 @@ Shouhaitez-vous le sauvegarder avant de fermer ?</translation>
 <context>
     <name>WbUpdatedDialog</name>
     <message>
-        <source>Important Note for Users of Versions Lower than R2022a</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p style=&quot;line-height:1.2&quot;&gt;All Webots worlds are now in the ENU axis system and all Webots devices, geometries, and PROTOs are in the FLU axis system. &lt;br /&gt; &lt;br /&gt; If your previous world or PROTO files include devices, geometries, or Webots PROTOs, then Webots will try to preserve the old behavior by rotating them. However, you may have to rotate some objects, fix bounding objects or adjust your controller by yourself. &lt;br /&gt;Refer to the &lt; a style = &apos;color: #5DADE2;&apos; href=&apos;https://github.com/cyberbotics/webots/wiki/How-to-adapt-your-world-or-PROTO-to-Webots-R2022a&apos;&gt;wiki&lt;/a&gt; for more information. &lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Close</source>
         <translation type="unfinished">Fermer</translation>
     </message>
     <message>
-        <source>Welcome to Webots R2023b</source>
+        <source>Welcome to Webots R2024a</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;Thank you for using Webots R2023b.&lt;/b&gt;</source>
+        <source>&lt;b&gt;Thank you for using Webots R2024a.&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Find out the new features, enhancements and bug fixes of Webots R2023b in the &lt;a style=&apos;color: #5DADE2;&apos; href=&apos;https://cyberbotics.com/doc/reference/changelog-r2023&apos;&gt;changelog&lt;/a&gt;.</source>
+        <source>Find out the new features, enhancements and bug fixes of Webots R2024a in the &lt;a style=&apos;color: #5DADE2;&apos; href=&apos;https://cyberbotics.com/doc/reference/changelog-r2023&apos;&gt;changelog&lt;/a&gt;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Important Note for Users of Previous Versions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p style=&quot;line-height:1.2&quot;&gt;Some features introduced in this version may break backward compatibility with your worlds and PROTO models. &lt;br /&gt; &lt;br /&gt; Please refer to the &lt;a style=&apos;color: #5DADE2;&apos; href=&apos;https://cyberbotics.com/doc/guide/upgrading-webots&apos;&gt;upgrade guide&lt;/a&gt;.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>WbVacuumGripper</name>
+    <message>
+        <source>&apos;tensileStrength&apos; must be positive or -1 (infinite).</source>
+        <translation type="unfinished">&apos;tensileStrength&apos; doit être positif ou égal à -1 (infini).</translation>
+    </message>
+    <message>
+        <source>&apos;shearStrength&apos; must be positive or -1 (infinite).</source>
+        <translation type="unfinished">&apos;shearStrength&apos; doit être positif ou égal à -1 (infini).</translation>
+    </message>
+    <message>
+        <source>VacuumGripper could not be attached because neither the VacuumGripper node nor the solid object have Physics nodes.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7163,10 +7153,6 @@ Do you want to play it back?
         <translation>Les dimensions de l&apos;objet redimensionné dépassent les limites du monde, déplacement de la souris annulé</translation>
     </message>
     <message>
-        <source>The dimensions of the rescaled object exceeds world numeric bounds, mouse drag aborted</source>
-        <translation>Les dimensions de l&apos;objet étalé dépassent les limites du monde, déplacement de la souris annulé</translation>
-    </message>
-    <message>
         <source>You can try to re-activate some OpenGL features from the Webots preferences.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7262,6 +7248,33 @@ Do you want to play it back?
     </message>
 </context>
 <context>
+    <name>WbW3dStreamingServer</name>
+    <message>
+        <source>Error when initializing the animation recorder: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Streaming server: Client set mode to W3D.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Streaming server received unsupported MJPEG message: &apos;%1&apos;. You should run Webots with the &apos;--stream=&quot;mode=mjpeg&quot;&apos; command line option.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Streaming server: Cannot send world date to client [%1] because: %2.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error when reloading world: %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot send the entire world</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>WbWebotsUpdateDialog</name>
     <message>
         <source>Check for updates...</source>
@@ -7318,19 +7331,15 @@ Do you want to play it back?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cannot export the x3d file to &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Cannot export html: &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cannot copy &apos;x3d_playback.html&apos; to &apos;%1&apos;</source>
+        <source>Cannot export the w3d file to &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cannot copy the &apos;x3d_playback.css&apos; file to &apos;%1&apos;</source>
+        <source>Cannot copy &apos;w3d_playback.html&apos; to &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7396,33 +7405,6 @@ Please do also check that your graphics hardware meets the requirements specifie
         <source>Webots requires OpenGL %1 while only OpenGL %2 can be initialized.
 Please check your GPU abilities and install the latest graphics drivers.
 Please do also check that your graphics hardware meets the requirements specified in the User Guide.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>WbX3dStreamingServer</name>
-    <message>
-        <source>Error when initializing the animation recorder: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Streaming server: Client set mode to X3D.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Streaming server received unsupported MJPEG message: &apos;%1&apos;. You should run Webots with the &apos;--stream=&quot;mode=mjpeg&quot;&apos; command line option.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Streaming server: Cannot send world date to client [%1] because: %2.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Error when reloading world: %1.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot send the entire world</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

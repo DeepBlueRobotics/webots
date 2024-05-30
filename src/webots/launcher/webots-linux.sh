@@ -79,13 +79,12 @@ if [ "$XDG_CURRENT_DESKTOP" == "i3" ]; then
     export QT_SCALE_FACTOR=2
     export QT_FONT_DPI=80
   fi
+# Fix for MATE desktop
+elif [ "$XDG_CURRENT_DESKTOP" == "MATE" ]; then
+  export QT_ENABLE_HIGHDPI_SCALING=0
 else
   export QT_ENABLE_HIGHDPI_SCALING=1
 fi
-
-# Fixes warning on Ubuntu 22.04
-unset XDG_SESSION_TYPE
-unset WAYLAND_DISPLAY
 
 # execute the real Webots binary in a child process
 if command -v primusrun >/dev/null 2>&1; then

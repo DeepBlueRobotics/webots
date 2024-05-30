@@ -60,7 +60,8 @@ void WbMFNode::clear() {
   QVector<WbNode *> tmp = mVector;
   mVector.clear();
   emit changed();
-  // qDeleteAll(tmp);  // Delete always USE nodes before DEF nodes
+
+  // We don't want to use qDeleteAll(tmp) because we need to delete USE nodes before DEF nodes
   const int n = tmp.size() - 1;
   for (int i = n; i >= 0; --i)
     delete tmp[i];
@@ -197,7 +198,7 @@ void WbMFNode::write(WbWriter &writer) const {
   const int vectorSize = mVector.size();
   for (int i = 0; i < vectorSize; ++i) {
     if (writer.isWebots() || writer.isUrdf() || mVector[i]->shallExport()) {
-      if (!writer.isX3d())
+      if (!writer.isW3d())
         writer.writeMFSeparator(c == 0, smallSeparator(i));
       writeItem(writer, i);
       ++c;
