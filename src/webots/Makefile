@@ -460,6 +460,7 @@ QT_SOURCES = WbAboutBox.cpp \
   WbVideoRecorder.cpp \
   WbVideoRecorderDialog.cpp \
   WbMultimediaStreamingServer.cpp \
+  WbVacuumGripper.cpp \
   WbViewpoint.cpp \
   WbView3D.cpp \
   WbVisualBoundingSphere.cpp \
@@ -475,7 +476,7 @@ QT_SOURCES = WbAboutBox.cpp \
   WbWrenRenderingContext.cpp \
   WbWrenTextureOverlay.cpp \
   WbWrenWindow.cpp \
-  WbX3dStreamingServer.cpp \
+  WbW3dStreamingServer.cpp \
   WbZoom.cpp
 
 # objects that don't inherit from QObject (alphabetical order)

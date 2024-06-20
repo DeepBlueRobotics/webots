@@ -38,7 +38,7 @@ HTTP request handlers:
 
 WebSocket request handlers:
 * The `/client` request on the simulation server URL will setup a new Webots instance and return the Webots WebSocket URL.
-The payload should be a JSON object named `start` containing a `url` string and optionally a `mode` string which can be either `x3d` (default value) or `mjpeg`.
+The payload should be a JSON object named `start` containing a `url` string and optionally a `mode` string which can be either `w3d` (default value) or `mjpeg`.
 ```json
 {
   "start": {
@@ -92,8 +92,8 @@ If you are installing the simulation server on the same machine as the session s
 1. Install the docker images of the Webots versions that you want to support.
 
     ```
-    docker pull cyberbotics/webots.cloud:R2023a-ubuntu20.04
-    docker pull cyberbotics/webots.cloud:R2023a-ubuntu20.04-numpy
+    docker pull cyberbotics/webots.cloud:{{ webots.version.major }}-ubuntu22.04
+    docker pull cyberbotics/webots.cloud:{{ webots.version.major }}-ubuntu22.04-numpy
     ```
 2. Configure the simulation server: create a file named `~/webots-server/config/simulation/simulation.json` with the following contents (to be adapted to your local setup):
 

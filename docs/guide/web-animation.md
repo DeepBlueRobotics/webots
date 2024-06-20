@@ -21,7 +21,7 @@ Select the `Share...` menu item and choose if you want to upload it to [webots.c
 Click the `Stop HTML5 animation` to finish the recording and save the animation.
 Webots will ask to playback the resulting file in the default Web browser (from the OS settings).
 
-**Note**: The `CSS` file, the `X3D` file, the `JSON` animation file and the required textures are exported in the same directory as the target `HTML` file.
+**Note**: The `CSS` file, the `W3D` file, the `JSON` animation file and the required textures are exported in the same directory as the target `HTML` file.
 
 **Note**: The `CSS` file is meant to be used as a styling guide but can be modified/removed.
 
@@ -30,7 +30,7 @@ In this case, please refer to the [section below](#remarks-on-the-used-technolog
 
 **Note**: A [Supervisor](supervisor-programming.md) can start or stop an animation recording as well.
 
-### How to Embed a Web Animation in Your Website
+### How to Embed a Web Animation in your Website
 
 Please refer to [this section](web-scene.md#how-to-embed-a-web-scene-in-your-website).
 
@@ -40,7 +40,7 @@ The web animation is played by a web component from the [WebotsView.js] package 
 
 The following attributes are available:
 * `data-thumbnail`: the name of the .jpg file containing the thumbnail. If the `data-thumbnail` attribute is not set, a default thumbnail will be displayed during load.
-* `data-scene`: the name of the .x3d file containing the 3d scene.
+* `data-scene`: the name of the .w3d file containing the 3d scene.
 * `data-animation`: the name of the .json file containing the animation sequence.
 * `data-autoplay`: boolean to determine if the animation should be played automatically, `true` by default.
 * `data-isMobileDevice`: boolean variable specifying if the application is running on a mobile device.
@@ -55,7 +55,7 @@ For more complex interaction with the web component, the following functions are
 * `hasAnimation()`: return `true` if there is already a animation loaded by the web component, `false` otherwise.
 * `hasView()`: return `true` if a view exist, `false` otherwise.
 * `loadAnimation(scene, animation, play, mobileDevice, thumbnail, raw)`: load and play the animation.
-  * `scene`: name of the .x3d file.
+  * `scene`: name of the .w3d file.
   * `animation`: name of the .json file.
   * `play`: if false, the animation will be paused, otherwise it will be played.
   * `mobileDevice`: boolean variable specifying if the application is running on a mobile device.
@@ -117,6 +117,6 @@ The actual refresh rate can be computed with the following formula:
 
 > **Note**: It is not recommended to change the `WorldInfo.FPS` or `WorldInfo.basicTimeStep` fields while recording an animation.
 
-### Remarks on the Used Technologies and Their Limitations
+### Remarks on the used Technologies and their Limitations
 
 Please refer to [this section](web-scene.md#remarks-on-the-used-technologies-and-their-limitations).

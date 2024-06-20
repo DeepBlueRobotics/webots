@@ -96,8 +96,8 @@ const QString &WbField::name() const {
   return mModel->name();
 }
 
-bool WbField::isVrml() const {
-  return mModel->isVrml();
+bool WbField::isW3d() const {
+  return mModel->isW3d();
 }
 
 bool WbField::isDeprecated() const {
@@ -117,7 +117,7 @@ void WbField::readValue(WbTokenizer *tokenizer, const QString &worldPath) {
 void WbField::write(WbWriter &writer) const {
   if (isDefault())
     return;
-  if (writer.isX3d())
+  if (writer.isW3d())
     writer << " ";
   const bool notAString = type() != WB_SF_STRING;
   writer.writeFieldStart(name(), notAString);
@@ -196,9 +196,7 @@ void WbField::setValue(const WbValue *otherValue) {
   WbMultipleValue *mvalue = dynamic_cast<WbMultipleValue *>(mValue);
   if (mvalue) {
     // remove all children
-    const int n = mvalue->size() - 1;
-    for (int i = n; i >= 0; --i)
-      mvalue->removeItem(i);
+    mvalue->clear();
 
     // add default children
     switch (mvalue->type()) {

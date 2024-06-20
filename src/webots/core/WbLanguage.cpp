@@ -52,7 +52,7 @@ static const char *PYTHON_KEYWORDS = "and as assert break class continue def "
 static const char *MAKEFILE_KEYWORDS = "if ifdef ifndef ifeq ifneq else endif include";
 
 static const char *WBT_KEYWORDS = "USE DEF PROTO IS FALSE TRUE NULL "
-                                  "field deprecatedField hiddenField unconnectedField vrmlField "
+                                  "field deprecatedField hiddenField unconnectedField w3dField "
                                   "SFVec3f SFBool SFInt32 SFFloat SFVec2f SFVec3f SFRotation SFColor SFString SFNode "
                                   "MFBool MFInt32 MFFloat MFVec2f MFVec3f MFRotation MFColor MFString MFNode";
 
@@ -481,6 +481,13 @@ static const char *C_API_FUNCTIONS = "wb_accelerometer_enable "
                                      "wb_touch_sensor_get_value "
                                      "wb_touch_sensor_get_lookup_table_size "
                                      "wb_touch_sensor_get_lookup_table "
+                                     "wb_vacuum_gripper_turn_on "
+                                     "wb_vacuum_gripper_turn_off "
+                                     "wb_vacuum_gripper_disable_presence "
+                                     "wb_vacuum_gripper_enable_presence "
+                                     "wb_vacuum_gripper_get_presence "
+                                     "wb_vacuum_gripper_get_presence_sampling_period "
+                                     "wb_vacuum_gripper_is_on "
                                      "wbu_car_cleanup "
                                      "wbu_car_enable_indicator_auto_disabling "
                                      "wbu_car_init "
@@ -690,6 +697,7 @@ static const char *C_API_CONSTANTS = "INFINITY "
                                      "WB_NODE_TRACK "
                                      "WB_NODE_TRACK_WHEEL "
                                      "WB_NODE_TRANSFORM "
+                                     "WB_NODE_VACUUM_GRIPPER "
                                      "WB_NODE_VIEWPOINT "
                                      "WB_NODE_WORLD_INFO "
                                      "WB_NODE_ZOOM";
@@ -702,7 +710,7 @@ static const char *API_CLASSES =
   "CoordinateSystem Driver Display DistanceSensor Emitter EngineType Field GPS Gyro Keyboard "
   "InertialUnit ImageRef IndicatorState Joystick LED Lidar LidarPoint LightSensor LinearMotor Mode Motion Motor "
   "MouseState Node Pen PositionSensor Radar RadarTarget RangeFinder Receiver Robot RotationalMotor "
-  "SimulationMode Skin Speaker Supervisor TouchSensor Type UserInputEvent WiperMode WheelIndex";
+  "SimulationMode Skin Speaker Supervisor TouchSensor Type UserInputEvent VacuumGripper WiperMode WheelIndex";
 
 static const char *WBT_OBJECTS =
   "Appearance Background BallJoint BallJointParameters Billboard Box "

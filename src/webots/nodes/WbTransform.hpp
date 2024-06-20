@@ -41,7 +41,7 @@ public:
   void setScaleNeedUpdate() override;
   void createWrenObjects() override;
 
-  QStringList fieldsToSynchronizeWithX3D() const override;
+  QStringList fieldsToSynchronizeWithW3d() const override;
 
   const WbVector3 &scale() const { return mScale->value(); }
   WbSFVector3 *scaleFieldValue() const { return mScale; }
@@ -57,7 +57,6 @@ public:
   mutable bool mAbsoluteScaleNeedUpdate;
 
   // 3x3 absolute rotation matrix
-  WbMatrix3 rotationMatrix() const override;
   const WbMatrix4 &vrmlMatrix() const override;
 
 protected:

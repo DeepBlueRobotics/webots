@@ -124,6 +124,7 @@ try
         'addheader','speaker.h', ...
         'addheader','supervisor.h', ...
         'addheader','touch_sensor.h', ...
+        'addheader','vacuum_gripper.h', ...
         'addheader',['utils' filesep 'motion.h'], ...
         'addheader',['utils' filesep 'system.h']);
       disp('Load Library successful');
@@ -180,9 +181,11 @@ try
   if ~isvarname(WEBOTS_CONTROLLER_NAME)
     newname = matlab.lang.makeValidName(WEBOTS_CONTROLLER_NAME);
     copyfile(append(WEBOTS_CONTROLLER_NAME, '.m'), append(newname, '.m'), 'f');
+    if desktop('-inuse'), dbstop('in', newname); end
     eval([newname, args]);
     delete(append(newname, '.m')); % delete temporary file
   else
+    if desktop('-inuse'), dbstop('in', WEBOTS_CONTROLLER_NAME); end
     eval([WEBOTS_CONTROLLER_NAME, args]);
   end
 
