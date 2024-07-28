@@ -47,9 +47,6 @@ now = datetime.datetime.now()
 if now.hour <= 5:
     # Publish nightly build with previous day date even if it completes in the morning
     now = now - datetime.timedelta(hours=6)
-if now.weekday() >= 5:
-    print('Skipping nightly build for Saturday and Sunday.')
-    sys.exit(0)
 
 warningMessage = '\nIt might be unstable, for a stable version of Webots, please use the [latest official release]' \
                  '(https://github.com/cyberbotics/webots/releases/latest).'
