@@ -49,6 +49,7 @@
 #include <ode/ode.h>
 
 #include <cassert>
+#include <iostream>
 
 static WbWorld *gWorld = NULL;
 static bool gOpenAL = false;
@@ -107,6 +108,8 @@ static void init() {
   } catch (const QString &e) {
     WbLog::toggle(stderr);
     WbLog::warning(QObject::tr("Cannot initialize the sound engine: %1").arg(e));
+    std::cout << QObject::tr("Cannot initialize the sound engine: %1").arg(e).toUtf8().constData() << std::endl;
+
     return;
   }
   WbLog::toggle(stderr);
