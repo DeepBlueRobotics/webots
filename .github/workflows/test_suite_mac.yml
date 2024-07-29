@@ -46,6 +46,9 @@ jobs:
         pip install setuptools
         npm install -g appdmg
         brew install swig
+        # blackhole-2ch provides a loopback audio device so that OpenAL doesn't hang for over 6
+        # minutes trying to open the Null Audio Device
+        brew install blackhole-2ch
     - name: Set Commit SHA in Version
       if: ${{ github.event_name == 'schedule' }}
       run: python scripts/packaging/set_commit_and_date_in_version.py $(git log -1 --format='%H')
