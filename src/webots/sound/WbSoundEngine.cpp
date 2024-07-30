@@ -49,6 +49,7 @@
 #include <ode/ode.h>
 
 #include <cassert>
+#include <iostream>
 
 static WbWorld *gWorld = NULL;
 static bool gOpenAL = false;
@@ -92,10 +93,13 @@ static void init() {
   gVolume = WbPreferences::instance()->value("Sound/volume", 80).toInt();
   WbLog::toggle(stderr);  // we want to disable stderr to avoid warnings in the console
   try {
+    std::cout << "Calling alcGetString()" << std::endl;
     const ALCchar *defaultDeviceName = alcGetString(NULL, ALC_DEFAULT_DEVICE_SPECIFIER);
-    if (defaultDeviceName == NULL)
+    if (defaultDeviceName == NULL || !strcmp(defaultDeviceName, "Null Audio Device"))
       throw QObject::tr("Cannot find OpenAL default device");
+    std::cout << "Calling alcOpenDevice()" << std::endl;
     gDefaultDevice = alcOpenDevice(defaultDeviceName);
+    std::cout << "Called alcOpenDevice()" << std::endl;
     if (gDefaultDevice == NULL)
       throw QObject::tr("Cannot initialize OpenAL default device '%1'").arg(defaultDeviceName);
     gContext = alcCreateContext(gDefaultDevice, NULL);
@@ -106,8 +110,9 @@ static void init() {
     gDevice = QString(defaultDeviceName);
   } catch (const QString &e) {
     WbLog::toggle(stderr);
-    if (WbSysInfo::environmentVariable("CI").isEmpty())
-      WbLog::warning(QObject::tr("Cannot initialize the sound engine: %1").arg(e));
+    WbLog::warning(QObject::tr("Cannot initialize the sound engine: %1").arg(e));
+    std::cout << QObject::tr("Cannot initialize the sound engine: %1").arg(e).toUtf8().constData() << std::endl;
+
     return;
   }
   WbLog::toggle(stderr);
