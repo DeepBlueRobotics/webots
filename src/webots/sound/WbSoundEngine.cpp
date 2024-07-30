@@ -95,7 +95,7 @@ static void init() {
   try {
     std::cout << "Calling alcGetString()" << std::endl;
     const ALCchar *defaultDeviceName = alcGetString(NULL, ALC_DEFAULT_DEVICE_SPECIFIER);
-    if (defaultDeviceName == NULL)
+    if (defaultDeviceName == NULL || !strcmp(defaultDeviceName, "Null Audio Device"))
       throw QObject::tr("Cannot find OpenAL default device");
     std::cout << "Calling alcOpenDevice()" << std::endl;
     gDefaultDevice = alcOpenDevice(defaultDeviceName);
