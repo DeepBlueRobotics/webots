@@ -183,7 +183,7 @@ void WbSpeaker::playText(const char *text, double volume) {
     QDir initialDir = QDir::current();
     if (!QDir::setCurrent(mControllerDir))
       this->warn(tr("Cannot change directory to: '%1'").arg(mControllerDir));
-    WbSoundClip *soundClip = WbSoundEngine::soundFromText(text, mEngine, mLanguage);
+    const WbSoundClip *soundClip = WbSoundEngine::soundFromText(text, mEngine, mLanguage);
     QDir::setCurrent(initialDir.path());
     if (soundClip) {
       source->setSoundClip(soundClip);
@@ -205,7 +205,7 @@ void WbSpeaker::playSound(const char *file, double volume, double pitch, double 
   if (!mSoundSourcesMap.contains(key)) {  // this sound was never played
     QString path;
     // check if the path is absolute
-    if (QDir::isAbsolutePath(filename))
+    if (QDir::isAbsolutePath(filename) && QFile::exists(filename))
       path = filename;
     // check if the path is relative to the controller
     if (path.isEmpty() && QFile::exists(mControllerDir + filename))
@@ -221,7 +221,7 @@ void WbSpeaker::playSound(const char *file, double volume, double pitch, double 
     WbSoundSource *source = WbSoundEngine::createSource();
     updateSoundSource(source);
     const QString extension = filename.mid(filename.lastIndexOf('.') + 1).toLower();
-    WbSoundClip *soundClip = WbSoundEngine::sound(path, extension, NULL, balance, side);
+    const WbSoundClip *soundClip = WbSoundEngine::sound(path, extension, NULL, balance, side);
     if (!soundClip) {
       this->warn(tr("Impossible to play '%1'. Make sure the file format is supported (8 or 16 bits, mono or stereo wave).\n")
                    .arg(filename));
