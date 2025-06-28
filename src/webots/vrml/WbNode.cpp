@@ -1236,9 +1236,15 @@ void WbNode::writeExport(WbWriter &writer) const {
     exportNodeFooter(writer);
     if (isUrdfRootLink() && nodeModelName() != "Robot")
       exportUrdfJoint(writer);
-  } else {
-    if (writer.isProto() && this == writer.rootNode())
+  } else if (writer.isProto()) {
+    assert(isProtoInstance());
+    writer.pushProtoUrl(mProto->url());
+    if (this == writer.rootNode())
       exportExternalSubProto(writer);
+    exportNodeContents(writer);
+    exportNodeFooter(writer);
+    writer.popProtoUrl();
+  } else {  // w3d
     exportNodeContents(writer);
     exportNodeFooter(writer);
   }

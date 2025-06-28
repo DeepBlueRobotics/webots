@@ -21,6 +21,7 @@
 
 #include <QtCore/QHash>
 #include <QtCore/QMap>
+#include <QtCore/QStack>
 
 #include "WbVector3.hpp"
 
@@ -47,7 +48,7 @@ public:
   QString *string() const { return mString; };
   QString path() const;
 
-  void writeLiteralString(const QString &string);
+  void writeLiteralString(const QString &string, bool updateRelativeURLs = false);
   void writeMFStart();
   void writeMFSeparator(bool first, bool smallSeparator);
   void writeMFEnd(bool empty);
@@ -68,12 +69,16 @@ public:
   void writeHeader(const QString &title);
   void writeFooter(const QStringList *info = NULL);
 
+  // used by 'convert root to basenode' writer
   void setRootNode(WbNode *node) { mRootNode = node; }
   WbNode *rootNode() const { return mRootNode; }
   void trackDeclaration(const QString &protoName, const QString &protoUrl) {
     mTrackedDeclarations.append(std::pair<QString, QString>(protoName, protoUrl));
   };
   const QList<std::pair<QString, QString>> &declarations() const { return mTrackedDeclarations; };
+  void pushProtoUrl(const QString &url) { mProtoUrlStack.push(url); };
+  void popProtoUrl() { mProtoUrlStack.pop(); };
+  QString currentProtoUrl() const { return mProtoUrlStack.isEmpty() ? "" : mProtoUrlStack.top(); };
 
   QMap<uint64_t, QString> &indexedFaceSetDefMap() { return mIndexedFaceSetDefMap; }
   WbWriter &operator<<(const QString &s);
@@ -107,6 +112,7 @@ private:
   // variables used by 'convert root to basenode' writer
   WbNode *mRootNode;
   QList<std::pair<QString, QString>> mTrackedDeclarations;  // keep track of declarations that need to change level
+  QStack<QString> mProtoUrlStack;  // keep track of PROTO URLs to write correct relative paths
 };
 
 #endif

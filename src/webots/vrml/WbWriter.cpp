@@ -18,11 +18,15 @@
 #include "WbQuaternion.hpp"
 #include "WbRgb.hpp"
 #include "WbRotation.hpp"
+#include "WbStandardPaths.hpp"
+#include "WbUrl.hpp"
 #include "WbVector2.hpp"
 #include "WbVector4.hpp"
 #include "WbVersion.hpp"
 
+#include <QtCore/QDir>
 #include <QtCore/QFileInfo>
+#include <QtCore/QRegularExpression>
 
 WbWriter::WbWriter(QIODevice *device, const QString &fileName) :
   mString(NULL),
@@ -114,7 +118,7 @@ void WbWriter::writeFieldEnd(bool w3dQuote) {
     *this << "\n";
 }
 
-void WbWriter::writeLiteralString(const QString &string) {
+void WbWriter::writeLiteralString(const QString &string, bool updateRelativeURLs) {
   QString text(string);
   if (isW3d()) {
     text.replace("&", "&amp;");
@@ -124,6 +128,19 @@ void WbWriter::writeLiteralString(const QString &string) {
   }
   text.replace("\\", "\\\\");   // replace '\' by '\\'
   text.replace("\"", "\\\"");   // replace '"' by '\"'
+
+  // relative urls that get exposed by conversion to base nodes need to be updated
+  if (updateRelativeURLs && isProto()) {
+    QRegularExpressionMatch match = WbUrl::vrmlResourceRegex().match(text);
+    if (match.hasMatch()) {
+      QString asset = match.captured(0);
+      if (!WbUrl::isWeb(asset) && QDir::isRelativePath(asset)) {
+        QString newUrl = QString("\"%1\"").arg(WbUrl::combinePaths(asset, currentProtoUrl()));
+        text = newUrl.replace(WbStandardPaths::webotsHomePath(), "webots://");
+      }
+    }
+  }
+
   *this << '"' << text << '"';  // add double quotes
 }
 

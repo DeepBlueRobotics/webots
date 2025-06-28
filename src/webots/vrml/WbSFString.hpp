@@ -31,7 +31,7 @@ public:
   WbSFString(const WbSFString &other) : mValue(other.mValue) {}
   virtual ~WbSFString() override {}
   void read(WbTokenizer *tokenizer, const QString &worldPath) override { readSFString(tokenizer, worldPath); }
-  void write(WbWriter &writer) const override { writer.writeLiteralString(mValue); }
+  void write(WbWriter &writer) const override { writer.writeLiteralString(mValue, true); }
   WbValue *clone() const override { return new WbSFString(*this); }
   bool equals(const WbValue *other) const override;
   void copyFrom(const WbValue *other) override;

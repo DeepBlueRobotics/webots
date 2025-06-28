@@ -43,7 +43,7 @@ public:
   void clear() override;
   void writeItem(WbWriter &writer, int index) const override {
     assert(index >= 0 && index < size());
-    writer.writeLiteralString(mValue[index]);
+    writer.writeLiteralString(mValue[index], true);
   }
   void insertDefaultItem(int index) override;
   WbVariant defaultNewVariant() const override { return WbVariant(QString()); }
