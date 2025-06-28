@@ -131,11 +131,12 @@ void WbWriter::writeLiteralString(const QString &string, bool updateRelativeURLs
 
   // relative urls that get exposed by conversion to base nodes need to be updated
   if (updateRelativeURLs && isProto()) {
-    QRegularExpressionMatch match = WbUrl::vrmlResourceRegex().match(text);
+    QRegularExpressionMatch match = WbUrl::vrmlResourceRegex().match(QString("\"%1\"").arg(text));
     if (match.hasMatch()) {
       QString asset = match.captured(0);
+      asset.replace("\"", "");
       if (!WbUrl::isWeb(asset) && QDir::isRelativePath(asset)) {
-        QString newUrl = QString("\"%1\"").arg(WbUrl::combinePaths(asset, currentProtoUrl()));
+        QString newUrl = WbUrl::combinePaths(asset, currentProtoUrl());
         text = newUrl.replace(WbStandardPaths::webotsHomePath(), "webots://");
       }
     }
