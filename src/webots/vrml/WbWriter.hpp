@@ -76,9 +76,8 @@ public:
     mTrackedDeclarations.append(std::pair<QString, QString>(protoName, protoUrl));
   };
   const QList<std::pair<QString, QString>> &declarations() const { return mTrackedDeclarations; };
-  void pushProtoUrl(const QString &url) { mProtoUrlStack.push(url); };
-  void popProtoUrl() { mProtoUrlStack.pop(); };
-  QString currentProtoUrl() const { return mProtoUrlStack.isEmpty() ? "" : mProtoUrlStack.top(); };
+  void setFieldScope(const QString &scope) { mCurrentFieldScope = scope; };
+  const QString &currentFieldScope() const { return mCurrentFieldScope; }
 
   QMap<uint64_t, QString> &indexedFaceSetDefMap() { return mIndexedFaceSetDefMap; }
   WbWriter &operator<<(const QString &s);
@@ -112,7 +111,7 @@ private:
   // variables used by 'convert root to basenode' writer
   WbNode *mRootNode;
   QList<std::pair<QString, QString>> mTrackedDeclarations;  // keep track of declarations that need to change level
-  QStack<QString> mProtoUrlStack;  // keep track of PROTO URLs to write correct relative paths
+  QString mCurrentFieldScope;  // keep track of the field scope (the file where the field is defined) so we can compute relative paths
 };
 
 #endif

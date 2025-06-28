@@ -136,7 +136,8 @@ void WbWriter::writeLiteralString(const QString &string, bool updateRelativeURLs
       QString asset = match.captured(0);
       asset.replace("\"", "");
       if (!WbUrl::isWeb(asset) && QDir::isRelativePath(asset)) {
-        QString newUrl = WbUrl::combinePaths(asset, currentProtoUrl());
+        assert(!currentFieldScope().isEmpty());
+        QString newUrl = WbUrl::combinePaths(asset, currentFieldScope());
         text = newUrl.replace(WbStandardPaths::webotsHomePath(), "webots://");
       }
     }

@@ -127,7 +127,11 @@ void WbField::write(WbWriter &writer) const {
     writer << " ";
   const bool notAString = type() != WB_SF_STRING;
   writer.writeFieldStart(name(), notAString);
+  writer.setFieldScope(mScope);
   mValue->write(writer);
+  // Technically, the scope should always be reset just before write(), so this isn't necessary,
+  // but it allows us to trip an assert in WbWriter if something goes wrong.
+  writer.setFieldScope("");
   writer.writeFieldEnd(notAString);
 }
 
