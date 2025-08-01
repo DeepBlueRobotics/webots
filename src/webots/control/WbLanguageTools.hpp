@@ -35,9 +35,9 @@ public:
 private:
   WbLanguageTools() {}
   ~WbLanguageTools() {}
-  static const QString checkIfPythonCommandExist(const QString &pythonCommand, QProcessEnvironment &env, bool log);
+  static const QString checkIfPythonCommandExist(const QString &pythonCommand, QStringList pythonArguments, QProcessEnvironment &env, bool log);
 #ifdef __APPLE__
-  static QString findWorkingPythonPath(const QString &pythonVersion, QProcessEnvironment &env, bool log);
+  static QString findWorkingPythonPath(const QString &pythonVersion, const QStringList& pythonArguments, QProcessEnvironment &env, bool log);
 #endif
 };
 

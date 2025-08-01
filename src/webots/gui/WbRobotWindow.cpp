@@ -57,8 +57,9 @@ void WbRobotWindow::setClientID(const QString &clientID, const QString &robotNam
 
 bool WbRobotWindow::openOnWebBrowser(const QString &url, const QString &program, const bool newBrowserWindow) {
   QString systemProgram;
-  // cppcheck-suppress unassignedVariable
-  QStringList arguments;
+  QStringList arguments = QProcess::splitCommand(program);
+  if (!arguments.isEmpty())
+    systemProgram = arguments.takeFirst();
 
 #ifdef _WIN32
   // The TEMP/TMP environment variables set my the MSYS2 console are confusing Visual C++ (among possibly other apps)
@@ -67,25 +68,24 @@ bool WbRobotWindow::openOnWebBrowser(const QString &url, const QString &program,
   const QByteArray TMP = qgetenv("TMP");
   qunsetenv("TMP");
   qunsetenv("TEMP");
-  if (program.isEmpty())
+  if (systemProgram.isEmpty())
     return WbDesktopServices::openUrl(url);
 
+  arguments = QStringList() << "/Q"
+                            << "/C"
+                            << "start" << systemProgram
+                            << arguments;
   systemProgram = "cmd";
-  arguments << "/Q"
-            << "/C"
-            << "start" << program;
 #elif __linux__
-  if (program.isEmpty())
+  if (systemProgram.isEmpty())
     return WbDesktopServices::openUrl(url);
-
-  systemProgram = program;
 #elif __APPLE__
-  if (program.isEmpty())
+  if (systemProgram.isEmpty())
     // safari fails to open the same url that has just been closed, generate random number to fix the issue.
     return WbDesktopServices::openUrl(url + '#' + QString::number(QRandomGenerator::global()->generate()));
 
-  systemProgram = "open";  // set argument
-  arguments << "-a" + program;
+  arguments = QStringList() << "-a" + systemProgram << arguments
+  systemProgram = "open";
 #endif
 
   QProcess currentProcess;

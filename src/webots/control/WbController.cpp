@@ -342,7 +342,10 @@ void WbController::start() {
     // other controller types are executed in the controller dir
     mProcess->setWorkingDirectory((mType == WbFileUtil::MATLAB) ? WbStandardPaths::controllerLibPath() + "matlab" :
                                                                   mControllerPath);
-    mProcess->start(mCommand, mArguments);
+    QStringList commandParts = QProcess::splitCommand(mCommand);
+    assert(!commandParts.isEmpty());
+    mCommand = commandParts.takeFirst();
+    mProcess->start(mCommand, commandParts << mArguments);
   }
 }
 

@@ -63,7 +63,11 @@ const QStringList WbLanguageTools::javaArguments() {
 }
 
 QString WbLanguageTools::pythonCommand(QString &shortVersion, const QString &command, QProcessEnvironment &env) {
-  QString pythonCommand = command;
+  QStringList pythonArguments = QProcess::splitCommand(command);
+  QString pythonCommand;
+  if (!pythonArguments.isEmpty())
+    pythonCommand = pythonArguments.takeFirst();
+
   if (pythonCommand.isEmpty())
 #ifdef _WIN32
     pythonCommand = "python";
@@ -87,7 +91,7 @@ QString WbLanguageTools::pythonCommand(QString &shortVersion, const QString &com
 
 #ifdef __APPLE__
   if (std::getenv("PWD"))
-    shortVersion = checkIfPythonCommandExist(pythonCommand, env, true);
+    shortVersion = checkIfPythonCommandExist(pythonCommand, pythonArguments, env, true);
   else if (pythonCommand == "python" || pythonCommand == "python3") {
     for (int minorVersion = 11; minorVersion >= 7; minorVersion--) {
       const QString versionString = QString::number(minorVersion);
@@ -104,14 +108,14 @@ QString WbLanguageTools::pythonCommand(QString &shortVersion, const QString &com
     if (pythonCommand.length() > 9 && pythonCommand[9] != '.')
       shortVersion += pythonCommand[9];
   } else
-    shortVersion = checkIfPythonCommandExist(pythonCommand, env, true);
+    shortVersion = checkIfPythonCommandExist(pythonCommand, pythonArguments, env, true);
   if (shortVersion.isEmpty())
     pythonCommand = "!";
 
   if (pythonCommand == "!")
     WbLog::warning(QObject::tr("Python was not found.\n") + advice);
 #else  // __linux__ and _WIN32
-  shortVersion = checkIfPythonCommandExist(pythonCommand, env, true);
+  shortVersion = checkIfPythonCommandExist(pythonCommand, pythonArguments, env, true);
   if (shortVersion.isEmpty()) {
     pythonCommand = "!";
     WbLog::warning(QObject::tr("Python was not found.\n") + advice);
@@ -120,9 +124,9 @@ QString WbLanguageTools::pythonCommand(QString &shortVersion, const QString &com
 #ifdef _WIN32  // 64-bit check
     QProcess process;
     process.setProcessEnvironment(env);
-    process.start(pythonCommand, QStringList() << "-u"
-                                               << "-c"
-                                               << "import sys;print(sys.maxsize > 2**32)");
+    process.start(pythonCommand, pythonArguments << "-u"
+                                                 << "-c"
+                                                 << "import sys;print(sys.maxsize > 2**32)");
     process.waitForFinished();
     bool processSucceeded = process.error() == QProcess::UnknownError;
     const QString output = process.readAll();
@@ -140,12 +144,13 @@ QString WbLanguageTools::pythonCommand(QString &shortVersion, const QString &com
   return pythonCommand;
 }
 
-const QString WbLanguageTools::checkIfPythonCommandExist(const QString &pythonCommand, QProcessEnvironment &env, bool log) {
+// Take pythonArguments by copy to avoid modifying the original list
+const QString WbLanguageTools::checkIfPythonCommandExist(const QString &pythonCommand, QStringList pythonArguments, QProcessEnvironment &env, bool log) {
   QString shortVersion;
   QProcess process;
   process.setProcessEnvironment(env);
-  process.start(pythonCommand, QStringList() << "-c"
-                                             << "import sys;print(sys.version);");
+  process.start(pythonCommand, pythonArguments << "-c"
+                                               << "import sys;print(sys.version);");
   process.waitForFinished();
   bool processSucceeded = process.error() == QProcess::UnknownError;
   const QString output = process.readAll();
@@ -164,21 +169,21 @@ const QString WbLanguageTools::checkIfPythonCommandExist(const QString &pythonCo
 }
 
 #ifdef __APPLE__
-QString WbLanguageTools::findWorkingPythonPath(const QString &pythonVersion, QProcessEnvironment &env, bool log) {
+QString WbLanguageTools::findWorkingPythonPath(const QString &pythonVersion, const QStringList& pythonArguments, QProcessEnvironment &env, bool log) {
   QString shortVersion;
 
   // look for python from python.org
   QString pythonCommandString =
     "/Library/Frameworks/Python.framework/Versions/" + pythonVersion + "/bin/python" + pythonVersion;
-  shortVersion = checkIfPythonCommandExist(pythonCommandString, env, false);
+  shortVersion = checkIfPythonCommandExist(pythonCommandString, pythonArguments, env, false);
   if (shortVersion.isEmpty()) {
     // look first possible path for python from homebrew
     pythonCommandString = "/usr/local/opt/python@" + pythonVersion + " /bin/python" + pythonVersion;
-    shortVersion = checkIfPythonCommandExist(pythonCommandString, env, false);
+    shortVersion = checkIfPythonCommandExist(pythonCommandString, pythonArguments, env, false);
     if (shortVersion.isEmpty()) {
       // look a second possible path for python from homebrew
       pythonCommandString = "/usr/local/bin/python" + pythonVersion;
-      shortVersion = checkIfPythonCommandExist(pythonCommandString, env, log);
+      shortVersion = checkIfPythonCommandExist(pythonCommandString, pythonArguments, env, log);
       if (shortVersion.isEmpty())
         pythonCommandString = "!";
     }
