@@ -62,7 +62,7 @@ const QStringList WbLanguageTools::javaArguments() {
 #endif
 }
 
-QString WbLanguageTools::pythonCommand(QString &shortVersion, const QString &command, QProcessEnvironment &env) {
+QString WbLanguageTools::pythonCommand(QString &shortVersion, const QString &command, const QProcessEnvironment &env) {
   QStringList pythonArguments = QProcess::splitCommand(command);
   QString pythonCommand;
   if (!pythonArguments.isEmpty())
@@ -145,7 +145,7 @@ QString WbLanguageTools::pythonCommand(QString &shortVersion, const QString &com
 }
 
 // Take pythonArguments by copy to avoid modifying the original list
-const QString WbLanguageTools::checkIfPythonCommandExist(const QString &pythonCommand, QStringList pythonArguments, QProcessEnvironment &env, bool log) {
+const QString WbLanguageTools::checkIfPythonCommandExist(const QString &pythonCommand, QStringList pythonArguments, const QProcessEnvironment &env, bool log) {
   QString shortVersion;
   QProcess process;
   process.setProcessEnvironment(env);
@@ -169,7 +169,7 @@ const QString WbLanguageTools::checkIfPythonCommandExist(const QString &pythonCo
 }
 
 #ifdef __APPLE__
-QString WbLanguageTools::findWorkingPythonPath(const QString &pythonVersion, const QStringList& pythonArguments, QProcessEnvironment &env, bool log) {
+QString WbLanguageTools::findWorkingPythonPath(const QString &pythonVersion, const QStringList& pythonArguments, const QProcessEnvironment &env, bool log) {
   QString shortVersion;
 
   // look for python from python.org

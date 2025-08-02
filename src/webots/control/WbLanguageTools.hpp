@@ -22,7 +22,7 @@ class QProcessEnvironment;
 class WbLanguageTools {
 public:
   // get platform dependent commands
-  static QString pythonCommand(QString &shortVersion, const QString &command, QProcessEnvironment &env);
+  static QString pythonCommand(QString &shortVersion, const QString &command, const QProcessEnvironment &env);
   static const QStringList pythonArguments();
   static const QString &javaCommand();
   static const QStringList javaArguments();
@@ -35,9 +35,9 @@ public:
 private:
   WbLanguageTools() {}
   ~WbLanguageTools() {}
-  static const QString checkIfPythonCommandExist(const QString &pythonCommand, QStringList pythonArguments, QProcessEnvironment &env, bool log);
+  static const QString checkIfPythonCommandExist(const QString &pythonCommand, QStringList pythonArguments, const QProcessEnvironment &env, bool log);
 #ifdef __APPLE__
-  static QString findWorkingPythonPath(const QString &pythonVersion, const QStringList& pythonArguments, QProcessEnvironment &env, bool log);
+  static QString findWorkingPythonPath(const QString &pythonVersion, const QStringList& pythonArguments, const QProcessEnvironment &env, bool log);
 #endif
 };
 
