@@ -96,14 +96,14 @@ QString WbLanguageTools::pythonCommand(QString &shortVersion, const QString &com
     for (int minorVersion = 11; minorVersion >= 7; minorVersion--) {
       const QString versionString = QString::number(minorVersion);
       const QString fullVersionString = "3." + versionString;
-      pythonCommand = findWorkingPythonPath(fullVersionString, env, false);
+      pythonCommand = findWorkingPythonPath(fullVersionString, pythonArguments, env, false);
       if (pythonCommand != "!") {
         shortVersion = QString("3") + versionString;
         break;
       }
     }
   } else if (pythonCommand.startsWith("python3.")) {
-    pythonCommand = findWorkingPythonPath(pythonCommand.mid(6), env, true);
+    pythonCommand = findWorkingPythonPath(pythonCommand.mid(6), pythonArguments, env, true);
     shortVersion = QString("3") + pythonCommand[8];
     if (pythonCommand.length() > 9 && pythonCommand[9] != '.')
       shortVersion += pythonCommand[9];
