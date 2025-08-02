@@ -141,6 +141,16 @@ QString WbLanguageTools::pythonCommand(QString &shortVersion, const QString &com
 
 #endif  // __APPLE__
 
+  // Escape double quotes in the command
+  pythonCommand.replace("\"", "\"\"\"");
+  pythonArguments.replaceInStrings("\"", "\"\"\"");
+
+  // Rebuild the command with escaped arguments
+  pythonCommand = QString("\"%1\"").arg(pythonCommand);
+  for (const QString &arg : pythonArguments) {
+    pythonCommand += QString(" \"%1\"").arg(arg);
+  }
+
   return pythonCommand;
 }
 
