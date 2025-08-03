@@ -994,7 +994,8 @@ const QString &WbController::name() const {
 }
 
 QString WbController::commandLine() const {  // returns the command line with double quotes if needed
-  QString commandLine = mCommand.contains(' ') ? '"' + mCommand + '"' : mCommand;
+  // mCommand is already escaped
+  QString commandLine = mCommand;
   foreach (QString argument, mArguments)
     commandLine +=
       ' ' + (argument.contains(' ') || (argument.contains('"')) ? '\"' + argument.replace('"', "\\\"") + '"' : argument);

@@ -146,9 +146,10 @@ QString WbLanguageTools::pythonCommand(QString &shortVersion, const QString &com
   pythonArguments.replaceInStrings("\"", "\"\"\"");
 
   // Rebuild the command with escaped arguments
-  pythonCommand = QString("\"%1\"").arg(pythonCommand);
+  if (pythonCommand.contains(" "))
+    pythonCommand = QString("\"%1\"").arg(pythonCommand);
   for (const QString &arg : pythonArguments) {
-    pythonCommand += QString(" \"%1\"").arg(arg);
+    pythonCommand += arg.contains(" ") ? QString(" \"%1\"").arg(arg) : QString(" %1").arg(arg);
   }
 
   return pythonCommand;
