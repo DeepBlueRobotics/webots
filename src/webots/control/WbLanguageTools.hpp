@@ -31,6 +31,8 @@ public:
 
   // add dir in front of path, in a platform independent way
   static void prependToPath(const QString &dir, QString &path);
+  // quote a command or argument for use in QProcess:splitCommand()
+  static QString quoteCommand(const QString &command);
 
 private:
   WbLanguageTools() {}

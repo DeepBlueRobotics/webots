@@ -829,7 +829,7 @@ void WbController::startGenericExecutable() {
 
   copyBinaryAndDependencies(mCommand);
 
-  mCommand = QDir::toNativeSeparators(mCommand);
+  mCommand = WbLanguageTools::quoteCommand(QDir::toNativeSeparators(mCommand));
   mArguments << mRobot->controllerArgs();
 }
 
@@ -838,7 +838,7 @@ void WbController::startExecutable() {
 
   copyBinaryAndDependencies(mCommand);
 
-  mCommand = QDir::toNativeSeparators(mCommand);
+  mCommand = WbLanguageTools::quoteCommand(QDir::toNativeSeparators(mCommand));
   mArguments << mRobot->controllerArgs();
 }
 
@@ -919,7 +919,7 @@ void WbController::startBotstudio() {
   QString genericContollerPath = WbStandardPaths::resourcesControllersPath() + "generic/";
   mCommand = genericContollerPath + "generic" + WbStandardPaths::executableExtension();
   copyBinaryAndDependencies(mCommand);
-  mCommand = QDir::toNativeSeparators(mCommand);
+  mCommand = WbLanguageTools::quoteCommand(QDir::toNativeSeparators(mCommand));
 }
 
 void WbController::startDocker() {
@@ -994,9 +994,11 @@ const QString &WbController::name() const {
 }
 
 QString WbController::commandLine() const {  // returns the command line with double quotes if needed
-  // mCommand is already escaped
-  QString commandLine = mCommand;
-  foreach (QString argument, mArguments)
+  QStringList commandParts = QProcess::splitCommand(mCommand) << mArguments;
+  QString commandLine;
+  if (!commandParts.isEmpty())
+    commandLine = commandParts.takeFirst();  // If available, explicitly take the first part as the command to not include a leading space
+  foreach (QString argument, commandParts)
     commandLine +=
       ' ' + (argument.contains(' ') || (argument.contains('"')) ? '\"' + argument.replace('"', "\\\"") + '"' : argument);
   return commandLine;

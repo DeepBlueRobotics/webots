@@ -41,6 +41,10 @@ void WbLanguageTools::prependToPath(const QString &dir, QString &path) {
     path = dir + PATHS_SEPARATOR + path;
 }
 
+QString WbLanguageTools::quoteCommand(const QString &command) {
+  return command.contains(" ") || command.contains("\"") ? QString("\"%1\"").arg(QString(command).replace("\"", "\"\"\"")) : command;
+}
+
 const QString &WbLanguageTools::javaCommand() {
   if (gJavaCommand.isEmpty()) {
 #ifdef _WIN32
@@ -142,15 +146,10 @@ QString WbLanguageTools::pythonCommand(QString &shortVersion, const QString &com
 #endif  // __APPLE__
 
   if (pythonCommand != "!") {
-    // Escape double quotes in the command
-    pythonCommand.replace("\"", "\"\"\"");
-    pythonArguments.replaceInStrings("\"", "\"\"\"");
-
-    // Rebuild the command with escaped arguments
-    if (pythonCommand.contains(" "))
-      pythonCommand = QString("\"%1\"").arg(pythonCommand);
+    // Rebuild the command with escaped argument
+    pythonCommand = quoteCommand(pythonCommand);
     for (const QString &arg : pythonArguments) {
-      pythonCommand += arg.contains(" ") ? QString(" \"%1\"").arg(arg) : QString(" %1").arg(arg);
+      pythonCommand += quoteCommand(arg);
     }
 }
 
@@ -239,7 +238,7 @@ QString WbLanguageTools::matlabCommand() {
   command += matlabExecPath;
 #endif
 
-  return command;
+  return quoteCommand(command);
 }
 
 const QStringList WbLanguageTools::matlabArguments() {
