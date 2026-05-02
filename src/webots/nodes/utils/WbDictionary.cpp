@@ -106,6 +106,8 @@ bool WbDictionary::updateDef(WbBaseNode *&node, WbSFNode *sfNode, WbMFNode *mfNo
     assert(!mNestedDictionaries.isEmpty());
     mNestedDictionaries.last().insert(defName, node);
   } else if (useCase) {
+          WbNodeOperations::instance()->deleteNode(node);
+          return false ;
     if (isAValidUseableNode) {
       const WbNode::NodeUse nodeUse = node->nodeUse();
       bool match = false;
@@ -437,6 +439,7 @@ void WbDictionary::updateProtosDef(WbBaseNode *&node, WbSFNode *sfNode, WbMFNode
 void WbDictionary::makeDefNodeAndUpdateDictionary(WbBaseNode *node, bool updateSceneDictionary) {
   const QString &useName = node->useName();
   node->makeDefNode();
+  node->validate(node->parentNode(), node->parentField(), node->nodeUse() == WbNode::BOUNDING_OBJECT_USE);
   assert(mNestedDictionaries.size() >= 2);
   mNestedDictionaries.removeLast();  // remove USE node local dictionary
   mNestedDictionaries.last().insert(useName, node);
